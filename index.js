@@ -4,6 +4,7 @@ const app  = express();
 const mongoose = require('mongoose');
 const model = require('./models/model');
 const router = require('./router/route');
+const bodyParser = require('body-parser');
 
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
@@ -12,15 +13,12 @@ mongoose.connect(process.env.DB_URL, {
     console.log("database connected, man");
 })
 
-app.get("/", (req, res) => {
-    let instance = new model.User({
-        name: "anim", 
-        email: "malvat.anim0@gmail.com",
-    });
-    instance.save();
-    res.send("user added");
-})
-
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: false,
+    })
+);
 app.use('/', router);
 
 app.listen(8000, ()=> {
