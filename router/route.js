@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const controller = require('../controller/controller');
 const model = require('../models/model');
-
 
 router.post("/addUser", async (req, res) => {
     if(!req.body.name || !req.body.email || !req.body.password) {
@@ -34,36 +34,7 @@ router.post("/addUser", async (req, res) => {
     }
 })
 
-router.post("/viewUser", (req, res)=>{
-    if(!req.body.email) {
-        res.send({
-            error: 1,
-            output: "provide email as parameter",
-        })
-    } else {
-        model.User.findOne({
-            email: req.body.email
-        }).then(result => {
-            if(result) {
-                res.send({
-                    error: 0,
-                    output: "result was found",
-                    data: result,
-                })
-            } else {
-                res.send({
-                    error: 1,
-                    output: "result was not found",
-                })
-            }
-        }).catch(err => {
-            res.send({
-                error: 1,
-                output: "there was some error fetching the data",
-            })
-        })
-    }
-})
+router.post("/viewUser", controller.viewUser)
 
 router.get("/", (req, res) => {
     res.send({
