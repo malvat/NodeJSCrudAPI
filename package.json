@@ -1,0 +1,16 @@
+{
+  "name": "stock-user",
+  "version": "1.0.0",
+  "description": "a simple mongodb application with node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Anim Malvat",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.21"
+  }
+}
