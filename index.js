@@ -1,12 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const app  = express();
 const mongoose = require('mongoose');
-const model = require('./model');
+const model = require('./models/model');
+const router = require('./router/route');
 
-const db_url = "mongodb://localhost/example";
-
-
-mongoose.connect(db_url, {
+mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 } ,()=>{
@@ -21,6 +20,8 @@ app.get("/", (req, res) => {
     instance.save();
     res.send("user added");
 })
+
+app.use('/', router);
 
 app.listen(8000, ()=> {
     console.log("server is running now");
